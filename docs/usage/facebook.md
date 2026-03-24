@@ -198,8 +198,16 @@ Token vừa lấy ở trên chỉ có hạn khoảng 1-2 giờ. Cần đổi san
 Trong Graph API Explorer, nhập query:
 
 ```
-oauth/access_token?grant_type=fb_exchange_token&client_id={APP_ID}&client_secret={APP_SECRET}&fb_exchange_token={TOKEN_Ở_BƯỚC_2.3}
+oauth/access_token
+  ?grant_type=fb_exchange_token
+  &client_id={APP_ID}
+  &client_secret={APP_SECRET}
+  &fb_exchange_token={TOKEN_Ở_BƯỚC_2.3}
 ```
+
+::: warning Lưu ý
+Khi dán vào Graph API Explorer, phải nối thành **1 dòng** (không có xuống hàng). Thay `{APP_ID}`, `{APP_SECRET}`, `{TOKEN_Ở_BƯỚC_2.3}` bằng giá trị thực.
+:::
 
 Click **Submit**. Kết quả trả về `access_token` mới — đây là Long-lived User Token (hạn ~60 ngày).
 
