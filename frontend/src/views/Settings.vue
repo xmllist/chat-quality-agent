@@ -118,6 +118,16 @@
             class="mb-3"
           />
 
+          <v-text-field
+            v-model="generalSettings.appUrl"
+            label="URL ứng dụng"
+            placeholder="https://cqa.yourdomain.com"
+            hint="Cấu hình URL để hệ thống gửi link chính xác qua Telegram và Email"
+            persistent-hint
+            :rules="appUrlRules"
+            class="mb-3"
+          />
+
           <v-btn color="primary" :loading="savingGeneral" @click="saveGeneral">{{ $t('save_settings') }}</v-btn>
         </v-card>
       </v-col>
@@ -165,7 +175,12 @@ const geminiModels = [
 ]
 
 const aiSettings = reactive({ provider: 'claude', model: 'claude-sonnet-4-6', apiKey: '', batchMode: true, batchSize: 5 })
-const generalSettings = reactive({ companyName: '', timezone: 'Asia/Ho_Chi_Minh', language: 'vi', exchangeRate: 26000 })
+const generalSettings = reactive({ companyName: '', timezone: 'Asia/Ho_Chi_Minh', language: 'vi', exchangeRate: 26000, appUrl: '' })
+
+const appUrlRules = [
+  (v: string) => !v || /^https?:\/\/.+/.test(v) || 'URL phải bắt đầu bằng http:// hoặc https://',
+  (v: string) => !v || !v.endsWith('/') || 'URL không nên có dấu / ở cuối',
+]
 
 const modelOptions = computed(() => {
   return aiSettings.provider === 'claude' ? claudeModels : geminiModels
@@ -185,6 +200,7 @@ async function loadSettings() {
     if (data.settings.ai_batch_mode) aiSettings.batchMode = data.settings.ai_batch_mode === 'true'
     if (data.settings.ai_batch_size) aiSettings.batchSize = parseInt(data.settings.ai_batch_size) || 5
     if (data.settings.exchange_rate_vnd) generalSettings.exchangeRate = parseFloat(data.settings.exchange_rate_vnd) || 26000
+    if (data.settings.app_url) generalSettings.appUrl = data.settings.app_url
     if (data.tenant) {
       generalSettings.companyName = data.tenant.name || ''
       generalSettings.timezone = data.tenant.timezone || 'Asia/Ho_Chi_Minh'
@@ -254,6 +270,7 @@ async function saveGeneral() {
       timezone: generalSettings.timezone,
       language: generalSettings.language,
       exchange_rate_vnd: generalSettings.exchangeRate,
+      app_url: generalSettings.appUrl,
     })
     showSnack(t('success'), 'success')
   } catch (err: any) {
