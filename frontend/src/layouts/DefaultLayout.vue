@@ -402,13 +402,13 @@ const navItems = computed(() => {
   const base = `/${tenantId.value}`
   const all = [
     { icon: 'mdi-view-dashboard', label: 'nav_home', route: base, exact: true, perm: null },
-    { icon: 'mdi-message-text', label: 'nav_channels', route: `${base}/channels`, exact: false, perm: 'channels' },
+    { icon: 'mdi-connection', label: 'nav_channels', route: `${base}/channels`, exact: false, perm: 'channels' },
     { icon: 'mdi-forum', label: 'nav_messages', route: `${base}/messages`, exact: false, perm: 'messages' },
     { icon: 'mdi-robot', label: 'nav_jobs', route: `${base}/jobs`, exact: false, perm: 'jobs' },
     { icon: 'mdi-text-box-search', label: 'activity_logs', route: `${base}/activity-logs`, exact: false, perm: 'settings' },
     { icon: 'mdi-currency-usd', label: 'cost_logs', route: `${base}/cost-logs`, exact: false, perm: 'settings' },
     { icon: 'mdi-bell-ring', label: 'nav_notification_logs', route: `${base}/notifications`, exact: false, perm: 'jobs' },
-    { icon: 'mdi-connection', label: 'nav_mcp', route: `${base}/mcp`, exact: false, perm: 'settings' },
+    { icon: 'mdi-api', label: 'nav_mcp', route: `${base}/mcp`, exact: false, perm: 'settings' },
     { icon: 'mdi-account-group', label: 'nav_users', route: `${base}/users`, exact: false, perm: 'settings' },
     { icon: 'mdi-cog', label: 'nav_settings', route: `${base}/settings`, exact: false, perm: 'settings' },
   ]
